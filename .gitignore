@@ -348,3 +348,26 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/java-app/nbproject/private/
+/java-app/build/
+
+
+/java-app/nbproject/private/
+
+# Compiled class file
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+/java-app/build/
+/java-app/dist/
+
+.idea
+java-app/.idea/
