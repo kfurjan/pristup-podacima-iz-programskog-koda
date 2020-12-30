@@ -48,13 +48,17 @@ namespace Ishod1.Dao
             }
         }
 
-        public IList<Driver> GetAllDrivers()
+        private static void ShowInfoMessage(object sender, SqlInfoMessageEventArgs e, System.Windows.Forms.Label label) => label.Text = e.Message;
+
+        public IList<Driver> GetAllDrivers(System.Windows.Forms.Label label)
         {
             IList<Driver> drivers = new List<Driver>();
 
             using (SqlConnection con = new SqlConnection(Cs))
             {
                 con.Open();
+                con.FireInfoMessageEventOnUserErrors = true;
+                con.InfoMessage += (s, e) => ShowInfoMessage(s, e, label);
                 using (SqlCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;

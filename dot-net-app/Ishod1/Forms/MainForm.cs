@@ -21,7 +21,7 @@ namespace Ishod1.Forms
             {
                 if (TbControl.SelectedTab.Text == TbPageDrivers.Text)
                 {
-                    ShowListBoxData(LbDrivers, repository.GetAllDrivers());
+                    ShowListBoxData(LbDrivers, repository.GetAllDrivers(LbInfo));
                 }
                 else if (TbControl.SelectedTab.Text == TbPageTravelWarrants.Text)
                 {
@@ -73,7 +73,7 @@ namespace Ishod1.Forms
         {
             try
             {
-                ShowListBoxData(LbDrivers, repository.GetAllDrivers());
+                ShowListBoxData(LbDrivers, repository.GetAllDrivers(LbInfo));
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace Ishod1.Forms
             try
             {
                 repository.DeleteDriver(int.Parse(TbIdDriver.Text));
-                ShowListBoxData(LbDrivers, repository.GetAllDrivers());
+                ShowListBoxData(LbDrivers, repository.GetAllDrivers(LbInfo));
             }
             catch (Exception ex)
             {
@@ -114,7 +114,7 @@ namespace Ishod1.Forms
                             TbTelephone.Text.Trim(),
                             int.Parse(TbDrivingLicenceNumber.Text.Trim())
                         ));
-                    ShowListBoxData(LbDrivers, repository.GetAllDrivers());
+                    ShowListBoxData(LbDrivers, repository.GetAllDrivers(LbInfo));
                 }
             }
             catch (Exception ex)
@@ -136,7 +136,7 @@ namespace Ishod1.Forms
                             TbTelephone.Text.Trim(),
                             int.Parse(TbDrivingLicenceNumber.Text.Trim())
                         ));
-                    ShowListBoxData(LbDrivers, repository.GetAllDrivers());
+                    ShowListBoxData(LbDrivers, repository.GetAllDrivers(LbInfo));
                 }
             }
             catch (Exception ex)
@@ -278,7 +278,7 @@ namespace Ishod1.Forms
 
         private void ShowListBoxData<T>(ListBox listBox, IList<T> collection) => listBox.DataSource = collection;
 
-        private bool FormInvalid() => TbPageDrivers.Controls.OfType<TextBox>().Any(c => string.IsNullOrWhiteSpace(c.Text) && c.Enabled);
+        private bool FormInvalid() => TbPageDrivers.Controls.OfType<TextBox>().Any(c => c.Enabled && string.IsNullOrWhiteSpace(c.Text));
 
         private void ShowDriverForm(Driver driver)
         {
@@ -293,7 +293,7 @@ namespace Ishod1.Forms
         {
             try
             {
-                CbDrivers.DataSource = repository.GetAllDrivers();
+                CbDrivers.DataSource = repository.GetAllDrivers(LbInfo);
                 CbCars.DataSource = repository.GetAllCars();
                 CbStartCities.DataSource = repository.GetAllCities();
                 CbStopCities.DataSource = repository.GetAllCities();

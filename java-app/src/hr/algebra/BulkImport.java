@@ -18,10 +18,10 @@ public class BulkImport {
     private static final int BATCH_SIZE = 100;
 
     public static void main(String[] args) {
-        ImportCsvData();
+        importCsvData();
     }
 
-    private static void ImportCsvData() {
+    private static void importCsvData() {
         try {
             Repository repository = RepositoryFactory.getRepository(SqlRepository.class.getName());
 

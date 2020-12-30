@@ -71,6 +71,7 @@
             this.TbPageSetup = new System.Windows.Forms.TabPage();
             this.BtnCleanDatabaseRecords = new System.Windows.Forms.Button();
             this.BtnInsertExampleRecords = new System.Windows.Forms.Button();
+            this.LbInfo = new System.Windows.Forms.Label();
             this.TbControl.SuspendLayout();
             this.TbPageDrivers.SuspendLayout();
             this.TbPageTravelWarrants.SuspendLayout();
@@ -91,6 +92,7 @@
             // 
             // TbPageDrivers
             // 
+            this.TbPageDrivers.Controls.Add(this.LbInfo);
             this.TbPageDrivers.Controls.Add(this.BtnClearDriversForm);
             this.TbPageDrivers.Controls.Add(this.TbDrivingLicenceNumber);
             this.TbPageDrivers.Controls.Add(this.TbTelephone);
@@ -242,7 +244,7 @@
             this.LbDrivers.ItemHeight = 16;
             this.LbDrivers.Location = new System.Drawing.Point(7, 7);
             this.LbDrivers.Name = "LbDrivers";
-            this.LbDrivers.Size = new System.Drawing.Size(235, 484);
+            this.LbDrivers.Size = new System.Drawing.Size(235, 452);
             this.LbDrivers.TabIndex = 0;
             this.LbDrivers.SelectedIndexChanged += new System.EventHandler(this.LbDrivers_SelectedIndexChanged);
             // 
@@ -510,6 +512,14 @@
             this.BtnInsertExampleRecords.UseVisualStyleBackColor = true;
             this.BtnInsertExampleRecords.Click += new System.EventHandler(this.BtnInsertExampleRecords_Click);
             // 
+            // LbInfo
+            // 
+            this.LbInfo.AutoSize = true;
+            this.LbInfo.Location = new System.Drawing.Point(7, 472);
+            this.LbInfo.Name = "LbInfo";
+            this.LbInfo.Size = new System.Drawing.Size(0, 17);
+            this.LbInfo.TabIndex = 15;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -574,5 +584,6 @@
         private System.Windows.Forms.Button BtnCreateTW;
         private System.Windows.Forms.Button BtnUpdateTW;
         private System.Windows.Forms.Button BtnDeleteTW;
+        private System.Windows.Forms.Label LbInfo;
     }
 }

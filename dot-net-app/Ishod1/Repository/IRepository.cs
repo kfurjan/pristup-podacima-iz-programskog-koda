@@ -7,7 +7,7 @@ namespace Ishod1.Repository
     {
         public int InsertExampleRecords();
         public int CleanDatabaseRecords();
-        public IList<Driver> GetAllDrivers();
+        public IList<Driver> GetAllDrivers(System.Windows.Forms.Label label);
         public int CreateDriver(Driver driver);
         public int UpdateDriver(Driver driver);
         public int DeleteDriver(int idDriver);
