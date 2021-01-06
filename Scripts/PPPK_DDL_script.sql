@@ -8,7 +8,7 @@ GO
  * Driver table.
  *
  * Columns:
- *   IDDriver	- auto increment primary key
+ *   IDDriver	- primary key
  *   Firstname	- driver's first name
  *   Lastname	- driver's last name
  *   Telephone	- driver's telephone
@@ -256,7 +256,7 @@ CREATE PROCEDURE CreateDriver
 AS
 BEGIN
 	declare @maxIdDriver int
-	select @maxIdDriver = max(IDDriver) from Driver
+	select @maxIdDriver = isnull(max(IDDriver), 0) from Driver
 	set @maxIdDriver = @maxIdDriver + 1
 	
 	INSERT INTO Driver (IDDriver, Firstname, Lastname, Telephone, DrivingLicenceNumber) VALUES
@@ -399,7 +399,7 @@ CREATE PROCEDURE CreateTravelWarrant
 AS
 BEGIN
 	declare @maxIdRoute int
-	SELECT @maxIdRoute = MAX(IDRoute) FROM ROUTE
+	SELECT @maxIdRoute = ISNULL(MAX(IDRoute), 0) FROM ROUTE
 	set @maxIdRoute = @maxIdRoute + 1
 	INSERT INTO Route (IDRoute, TimeHours, CityA, CityB, Kilometers, AvgSpeed, FuelUsed) VALUES
 		(@maxIdRoute, @timeHours, @idCityA, @idCityB, 0, 0, 0)
@@ -502,5 +502,219 @@ AS
 BEGIN
 	INSERT INTO TravelWarrant (IDTravelWarrant, DriverID, CarID, TravelWarrantTypeID, FuelID, RouteID) VALUES
 		(@idTravelWarrant, @driverId, @carId, @travelWarrantTypeId, @fuelId, @routeId)
+END
+GO
+
+CREATE PROC SelectRouteData
+	@idRoute int
+AS
+BEGIN
+	SELECT 
+		r.IDRoute,
+		r.TimeHours,
+		ca.Name as CityA,
+		cb.Name as CityB,
+		r.Kilometers,
+		r.AvgSpeed,
+		r.FuelUsed
+	FROM Route as r
+		inner join City as ca
+	on ca.IDCity = r.CityA 
+		inner join City as cb
+	on cb.IDCity = r.CityB
+	where IDRoute = @idRoute
+END
+GO
+
+CREATE PROC GetAllRoutes
+AS
+BEGIN
+	SELECT 
+		r.IDRoute,
+		r.TimeHours,
+		ca.IDCity as IDCityA,
+		ca.Name as CityA,
+		cb.IDCity as IDCityB,
+		cb.Name as CityB,
+		r.Kilometers,
+		r.AvgSpeed,
+		r.FuelUsed
+	FROM Route as r
+		inner join City as ca
+	on ca.IDCity = r.CityA 
+		inner join City as cb
+	on cb.IDCity = r.CityB
+END
+GO
+
+CREATE PROC CreateRoute
+	@timeHours int,
+	@kilometers int,
+	@idCityA int,
+	@idCityB int,
+	@avgSpeed int,
+	@fuelUsed int
+AS
+BEGIN
+	declare @idRoute int
+	select @idRoute = isnull(max(IDRoute), 0) from Route
+
+	set @idRoute = @idRoute + 1
+
+	INSERT INTO Route (IDRoute, TimeHours, Kilometers, CityA, CityB, AvgSpeed, FuelUsed) VALUES
+		(@idRoute, @timeHours, @kilometers, @idCityA, @idCityB, @avgSpeed, @fuelUsed)
+END
+GO
+
+CREATE PROC UpdateRoute
+	@idRoute int,
+	@timeHours int,
+	@kilometers int,
+	@idCityA int,
+	@idCityB int,
+	@avgSpeed int,
+	@fuelUsed int
+AS
+BEGIN
+	UPDATE Route
+	SET 
+		TimeHours = @timeHours,
+		Kilometers = @kilometers,
+		CityA = @idCityA,
+		CityB = @idCityB,
+		AvgSpeed = @avgSpeed,
+		FuelUsed = @fuelUsed
+	WHERE IDRoute = @idRoute
+END
+GO
+
+CREATAE PROC DeleteRoute
+	@idRoute int
+AS
+BEGIN
+	ALTER TABLE TravelWarrant
+	NOCHECK CONSTRAINT FK_TravelWarrant_Route
+
+	DELETE
+	FROM Route
+	WHERE IDRoute = @idRoute
+
+	ALTER TABLE TravelWarrant 
+		CHECK CONSTRAINT FK_TravelWarrant_Route
+END
+GO
+
+ALTER PROC GetAllDatabaseData
+AS
+BEGIN
+	SELECT
+		tw.IDTravelWarrant,
+		twt.IDTravelWarrantType,
+		d.IDDriver,
+		d.Firstname,
+		d.Lastname,
+		d.Telephone,
+		d.DrivingLicenceNumber,
+		c.IDCar,
+		c.Brand,
+		c.Model,
+		c.Year,
+		c.InitialMileage,
+		f.IDFuel,
+		f.Time,
+		f.DriverID,
+		f.CityID,
+		f.Amount,
+		f.Price,
+		ct.IDCity,
+		ct.Name,
+		ct.Latitude,
+		ct.Longitude,
+		ct.Country,
+		ct.CountryCode,
+		ct.County,
+		ct.Capital,
+		ct.Population,
+		ct.PopulationProper,
+		r.IDRoute,
+		r.TimeHours,
+		r.CityA,
+		r.CityB,
+		r.Kilometers,
+		r.AvgSpeed,
+		r.FuelUsed
+	FROM
+		TravelWarrant as tw
+	INNER JOIN Driver as d
+		on d.IDDriver = tw.DriverID
+	INNER JOIN Car as c
+		on c.IDCar = tw.CarID
+	INNER JOIN TravelWarrantType as twt
+		on twt.IDTravelWarrantType = tw.TravelWarrantTypeID
+	INNER JOIN Fuel as f
+		on f.IDFuel = tw.FuelID
+	INNER JOIN City as ct
+		on ct.IDCity = f.CityID
+	INNER JOIN Route as r
+		on r.IDRoute = tw.RouteID
+	ORDER BY tw.IDTravelWarrant
+END
+GO
+
+CREATE PROCEDURE CleanDatabaseRecordsAfterExport
+AS
+BEGIN
+	ALTER TABLE Fuel
+		NOCHECK CONSTRAINT FK_Fuel_Driver, FK_Fuel_City
+	ALTER TABLE Route
+		NOCHECK CONSTRAINT FK_Route_CityA, FK_Route_CityB
+	ALTER TABLE TravelWarrant
+		NOCHECK CONSTRAINT FK_TravelWarrant_Driver, FK_TravelWarrant_Car, FK_TravelWarrant_Fuel, FK_TravelWarrant_Route
+	
+	DELETE FROM Driver
+	DELETE FROM Car
+	DELETE FROM Fuel
+	DELETE FROM Route
+	DELETE FROM TravelWarrant
+
+	ALTER TABLE Fuel 
+		CHECK CONSTRAINT FK_Fuel_Driver, FK_Fuel_City 
+	ALTER TABLE Route 
+		CHECK CONSTRAINT FK_Route_CityA, FK_Route_CityB
+	ALTER TABLE TravelWarrant 
+		CHECK CONSTRAINT FK_TravelWarrant_Driver, FK_TravelWarrant_Car, FK_TravelWarrant_Fuel, FK_TravelWarrant_Route
+END
+GO
+
+CREATE PROC CreateFuel
+	@time datetime,
+	@idDriver int,
+	@idCity int,
+	@amount int,
+	@price int
+AS
+BEGIN
+	declare @maxIdFuel int
+	select @maxIdFuel = isnull(max(IDFuel), 0) from Fuel
+	set @maxIdFuel = @maxIdFuel + 1
+	
+	INSERT INTO Fuel(IDFuel, Time, DriverID, CityID, Amount, Price) VALUES
+		(@maxIdFuel, @time, @idDriver, @idCity, @amount, @price)
+END
+GO
+
+CREATE PROC CreateCar
+	@brand nvarchar(100),
+	@model nvarchar(100),
+	@year int,
+	@initialMileage int
+AS
+BEGIN
+	declare @maxIdCar int
+	select @maxIdCar = isnull(max(IDCar), 0) from Car
+	set @maxIdCar = @maxIdCar + 1
+	
+	INSERT INTO Car(IDCar, Brand, Model, Year, InitialMileage) VALUES
+		(@maxIdCar, @brand, @model, @year, @initialMileage)
 END
 GO

@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TravelWarrants>
+  <TravelWarrant IDTravelWarrant="1">
+    <TravelWarrantType IDTravelWarrantType="1">CLOSED</TravelWarrantType>
+    <Driver>
+      <IDDriver>1</IDDriver>
+      <Firstname>Niki</Firstname>
+      <Lastname>Lauda</Lastname>
+      <Telephone>123-456</Telephone>
+      <DrivingLicenceNumber>31975</DrivingLicenceNumber>
+    </Driver>
+    <Car>
+      <IDCar>1</IDCar>
+      <Brand>VW</Brand>
+      <Model>Buba</Model>
+      <Year>1998</Year>
+      <InitialMileage>750000</InitialMileage>
+    </Car>
+    <Fuel>
+      <IDFuel>1</IDFuel>
+      <Time>10.8.2018. 12:23:45</Time>
+      <DriverID>1</DriverID>
+      <City CityID="1">
+        <Name>Zagreb</Name>
+        <Latitude>45,8</Latitude>
+        <Longitude>16</Longitude>
+        <Country>Croatia</Country>
+        <CountryCode>HR</CountryCode>
+        <County>Zagreb, Grad</County>
+        <Capital>primary</Capital>
+        <Population>722526</Population>
+        <PopulationProper>698966</PopulationProper>
+      </City>
+      <Amount>30</Amount>
+      <Price>300</Price>
+    </Fuel>
+    <Route>
+      <IDRoute>1</IDRoute>
+      <TimeHours>4</TimeHours>
+      <CityA>1</CityA>
+      <CityB>3</CityB>
+      <Kilometers>100</Kilometers>
+      <AvgSpeed>70</AvgSpeed>
+      <FuelUsed>10</FuelUsed>
+    </Route>
+  </TravelWarrant>
+  <TravelWarrant IDTravelWarrant="2">
+    <TravelWarrantType IDTravelWarrantType="2">ACTIVE</TravelWarrantType>
+    <Driver>
+      <IDDriver>2</IDDriver>
+      <Firstname>John</Firstname>
+      <Lastname>Doe</Lastname>
+      <Telephone>456-123</Telephone>
+      <DrivingLicenceNumber>112233</DrivingLicenceNumber>
+    </Driver>
+    <Car>
+      <IDCar>2</IDCar>
+      <Brand>Zastava</Brand>
+      <Model>101</Model>
+      <Year>2008</Year>
+      <InitialMileage>30</InitialMileage>
+    </Car>
+    <Fuel>
+      <IDFuel>2</IDFuel>
+      <Time>11.6.2019. 12:16:45</Time>
+      <DriverID>2</DriverID>
+      <City CityID="2">
+        <Name>Split</Name>
+        <Latitude>43,513889</Latitude>
+        <Longitude>16,455833</Longitude>
+        <Country>Croatia</Country>
+        <CountryCode>HR</CountryCode>
+        <County>Splitsko-Dalmatinska Županija</County>
+        <Capital>admin</Capital>
+        <Population>214741</Population>
+        <PopulationProper>176314</PopulationProper>
+      </City>
+      <Amount>45</Amount>
+      <Price>450</Price>
+    </Fuel>
+    <Route>
+      <IDRoute>2</IDRoute>
+      <TimeHours>8</TimeHours>
+      <CityA>1</CityA>
+      <CityB>2</CityB>
+      <Kilometers>300</Kilometers>
+      <AvgSpeed>60</AvgSpeed>
+      <FuelUsed>30</FuelUsed>
+    </Route>
+  </TravelWarrant>
+  <TravelWarrant IDTravelWarrant="3">
+    <TravelWarrantType IDTravelWarrantType="3">FUTURE</TravelWarrantType>
+    <Driver>
+      <IDDriver>3</IDDriver>
+      <Firstname>Mihajel</Firstname>
+      <Lastname>Šumaher</Lastname>
+      <Telephone>987-321</Telephone>
+      <DrivingLicenceNumber>791155</DrivingLicenceNumber>
+    </Driver>
+    <Car>
+      <IDCar>3</IDCar>
+      <Brand>Audi</Brand>
+      <Model>A4</Model>
+      <Year>2014</Year>
+      <InitialMileage>74503</InitialMileage>
+    </Car>
+    <Fuel>
+      <IDFuel>3</IDFuel>
+      <Time>7.4.2020. 12:12:45</Time>
+      <DriverID>3</DriverID>
+      <City CityID="3">
+        <Name>Varaždin</Name>
+        <Latitude>46,304444</Latitude>
+        <Longitude>16,337778</Longitude>
+        <Country>Croatia</Country>
+        <CountryCode>HR</CountryCode>
+        <County>Varaždinska Županija</County>
+        <Capital>admin</Capital>
+        <Population>50000</Population>
+        <PopulationProper>21474</PopulationProper>
+      </City>
+      <Amount>10</Amount>
+      <Price>100</Price>
+    </Fuel>
+    <Route>
+      <IDRoute>3</IDRoute>
+      <TimeHours>24</TimeHours>
+      <CityA>2</CityA>
+      <CityB>3</CityB>
+      <Kilometers>400</Kilometers>
+      <AvgSpeed>75</AvgSpeed>
+      <FuelUsed>60</FuelUsed>
+    </Route>
+  </TravelWarrant>
+</TravelWarrants>

@@ -8,6 +8,8 @@
         public int Year { get; set; }
         public int InitialMileage { get; set; }
 
+        public Car() { }
+
         public Car(string brand, string model, int year, int initialMileage)
         {
             Brand = brand;

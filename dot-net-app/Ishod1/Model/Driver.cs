@@ -8,6 +8,8 @@
         public string Telephone { get; set; }
         public int DrivingLicenceNumber { get; set; }
 
+        public Driver() { }
+
         public Driver(string firstName, string lastName, string telephone, int drivingLicenceNumber)
         {
             Firstname = firstName;

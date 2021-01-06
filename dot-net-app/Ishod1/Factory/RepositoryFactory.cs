@@ -7,7 +7,8 @@ namespace Ishod1.Factory
     static class RepositoryFactory
     {
         public static IRepository GetInstance(Type type) =>
-            Activator.CreateInstance(type) is IRepository repository ? repository
-                : throw new Exception($"{type} is not {(MethodBase.GetCurrentMethod() as MethodInfo).ReturnType.Name}");
+            Activator.CreateInstance(type) is IRepository repository
+            ? repository
+            : throw new Exception($"{type} is not {(MethodBase.GetCurrentMethod() as MethodInfo).ReturnType.Name}");
     }
 }

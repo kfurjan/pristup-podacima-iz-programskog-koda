@@ -11,6 +11,8 @@ namespace Ishod1.Model
         public int Amount { get; set; }
         public int Price { get; set; }
 
+        public Fuel() { }
+
         public Fuel(DateTime time, Driver driver, City city, int amount, int price)
         {
             Time = time;

@@ -1,8 +1,10 @@
 ﻿using Ishod1.Model;
 using Ishod1.Repository;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Transactions;
@@ -23,7 +25,9 @@ namespace Ishod1.Dao
         private const string ID_CITY_A = "@idCityA";
         private const string ID_CITY_B = "@idCityB";
         private const string TIME_HOURS = "@timeHours";
+
         private static readonly string Cs = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
+        private static readonly SqlDatabase db = new SqlDatabase(Cs);
 
         public int CleanDatabaseRecords() => NoParamsStoredProcedure(MethodBase.GetCurrentMethod().Name);
 
@@ -197,8 +201,12 @@ namespace Ishod1.Dao
                             (
                                 (int)dr[nameof(Route.IDRoute)],
                                 (int)dr[nameof(Route.TimeHours)],
-                                new City { Name = dr[nameof(Route.StartCity)].ToString() },
-                                new City { Name = dr[nameof(Route.StopCity)].ToString() },
+                                new City { Name = dr["StartCity"].ToString() },
+                                new City
+                                {
+                                    IDCity = (int)dr[nameof(City.IDCity)],
+                                    Name = dr["StopCity"].ToString()
+                                },
                                 (int)dr[nameof(Route.Kilometers)],
                                 (int)dr[nameof(Route.AvgSpeed)],
                                 (int)dr[nameof(Route.FuelUsed)]
@@ -322,8 +330,8 @@ namespace Ishod1.Dao
                         cmd.Parameters.AddWithValue(ID_DRIVER, travelWarrant.Driver.IDDriver);
                         cmd.Parameters.AddWithValue(ID_CAR, travelWarrant.Car.IDCar);
                         cmd.Parameters.AddWithValue(ID_TRAVEL_WARRANT_TYPE, (int)travelWarrant.TravelWarrantType + 1);
-                        cmd.Parameters.AddWithValue(ID_CITY_A, travelWarrant.Route.StartCity.IDCity);
-                        cmd.Parameters.AddWithValue(ID_CITY_B, travelWarrant.Route.StopCity.IDCity);
+                        cmd.Parameters.AddWithValue(ID_CITY_A, travelWarrant.Route.CityA.IDCity);
+                        cmd.Parameters.AddWithValue(ID_CITY_B, travelWarrant.Route.CityB.IDCity);
                         cmd.Parameters.AddWithValue(TIME_HOURS, travelWarrant.Route.TimeHours);
                         int result = cmd.ExecuteNonQuery();
                         scope.Complete();
@@ -349,8 +357,8 @@ namespace Ishod1.Dao
                         cmd.Parameters.AddWithValue(ID_CAR, travelWarrant.Car.IDCar);
                         cmd.Parameters.AddWithValue(ID_TRAVEL_WARRANT_TYPE, (int)travelWarrant.TravelWarrantType + 1);
                         cmd.Parameters.AddWithValue(ID_ROUTE, travelWarrant.Route.IDRoute);
-                        cmd.Parameters.AddWithValue(ID_CITY_A, travelWarrant.Route.StartCity.IDCity);
-                        cmd.Parameters.AddWithValue(ID_CITY_B, travelWarrant.Route.StopCity.IDCity);
+                        cmd.Parameters.AddWithValue(ID_CITY_A, travelWarrant.Route.CityA.IDCity);
+                        cmd.Parameters.AddWithValue(ID_CITY_B, travelWarrant.Route.CityB.IDCity);
                         cmd.Parameters.AddWithValue(TIME_HOURS, travelWarrant.Route.TimeHours);
                         int result = cmd.ExecuteNonQuery();
                         scope.Complete();
@@ -359,5 +367,111 @@ namespace Ishod1.Dao
                 }
             }
         }
+
+        public DataSet SelectRouteData(int idRoute)
+        {
+            using (SqlConnection con = new SqlConnection(Cs))
+            {
+                con.Open();
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = MethodBase.GetCurrentMethod().Name;
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue(ID_ROUTE, idRoute);
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+                    DataSet dataSet = new DataSet("Routes");
+
+                    dataAdapter.Fill(dataSet);
+
+                    dataSet.Tables[0].TableName = nameof(Route);
+
+                    return dataSet;
+                }
+            }
+        }
+
+        public IList<Route> GetAllRoutes()
+        {
+            IList<Route> routes = new List<Route>();
+
+            using (IDataReader dr = db.ExecuteReader(CommandType.StoredProcedure, MethodBase.GetCurrentMethod().Name))
+            {
+                while (dr.Read())
+                {
+                    routes.Add(new Route
+                    {
+                        IDRoute = (int)dr[nameof(Route.IDRoute)],
+                        TimeHours = (int)dr[nameof(Route.TimeHours)],
+                        CityA = new City
+                        {
+                            IDCity = (int)dr["IDCityA"],
+                            Name = dr[nameof(Route.CityA)].ToString()
+                        },
+                        CityB = new City
+                        {
+                            IDCity = (int)dr["IDCityB"],
+                            Name = dr[nameof(Route.CityB)].ToString()
+                        },
+                        Kilometers = (int)dr[nameof(Route.Kilometers)],
+                        AvgSpeed = (int)dr[nameof(Route.AvgSpeed)],
+                        FuelUsed = (int)dr[nameof(Route.FuelUsed)]
+                    });
+                }
+            }
+
+            return routes;
+        }
+
+        public int CreateRoute(Route route)
+            => db.ExecuteNonQuery(MethodBase.GetCurrentMethod().Name,
+                route.TimeHours, route.Kilometers, route.CityA.IDCity,
+                route.CityB.IDCity, route.AvgSpeed, route.FuelUsed);
+
+        public int UpdateRoute(Route route)
+            => db.ExecuteNonQuery(MethodBase.GetCurrentMethod().Name,
+                route.IDRoute, route.TimeHours, route.Kilometers, route.CityA.IDCity,
+                route.CityB.IDCity, route.AvgSpeed, route.FuelUsed);
+
+        public int DeleteRoute(int idRoute)
+            => db.ExecuteNonQuery(MethodBase.GetCurrentMethod().Name, idRoute);
+
+        public DataTable GetAllDatabaseData()
+        {
+            using (SqlConnection con = new SqlConnection(Cs))
+            {
+                con.Open();
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = MethodBase.GetCurrentMethod().Name;
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DataTable dataTable = new DataTable(nameof(TravelWarrant));
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+                    dataAdapter.Fill(dataTable);
+
+                    return dataTable;
+                }
+            }
+        }
+
+        public int CleanDatabaseRecordsAfterExport()
+            => db.ExecuteNonQuery(MethodBase.GetCurrentMethod().Name);
+
+        public int CreateFuel(Fuel fuel)
+            => db.ExecuteNonQuery(MethodBase.GetCurrentMethod().Name,
+                fuel.Time, fuel.Driver.IDDriver, fuel.FuelCity.IDCity,
+                fuel.Amount, fuel.Price);
+
+        public int CreateCar(Car car)
+            => db.ExecuteNonQuery(MethodBase.GetCurrentMethod().Name,
+                car.Brand, car.Model, car.Year, car.InitialMileage);
+
+        public int InsertTravelWarrant(TravelWarrant travelWarrant)
+            => db.ExecuteNonQuery(MethodBase.GetCurrentMethod().Name,
+                travelWarrant.IDTravelWarrant, travelWarrant.Driver.IDDriver,
+                travelWarrant.Car.IDCar, (int)travelWarrant.TravelWarrantType,
+                travelWarrant.Fuel.IDFuel, travelWarrant.Route.IDRoute);
     }
 }
