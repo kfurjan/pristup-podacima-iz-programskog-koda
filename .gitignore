@@ -371,3 +371,5 @@ hs_err_pid*
 
 .idea
 java-app/.idea/
+/java-hibernate-app/nbproject/private/
+/java-hibernate-app/build/

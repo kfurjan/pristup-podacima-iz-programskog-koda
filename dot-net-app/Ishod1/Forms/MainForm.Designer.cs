@@ -91,10 +91,10 @@
             this.label19 = new System.Windows.Forms.Label();
             this.LbRoutes = new System.Windows.Forms.ListBox();
             this.TbPageSetup = new System.Windows.Forms.TabPage();
+            this.BtnXmlToDb = new System.Windows.Forms.Button();
+            this.BtnDbToXml = new System.Windows.Forms.Button();
             this.BtnCleanDatabaseRecords = new System.Windows.Forms.Button();
             this.BtnInsertExampleRecords = new System.Windows.Forms.Button();
-            this.BtnDbToXml = new System.Windows.Forms.Button();
-            this.BtnXmlToDb = new System.Windows.Forms.Button();
             this.TbControl.SuspendLayout();
             this.TbPageDrivers.SuspendLayout();
             this.TbPageTravelWarrants.SuspendLayout();
@@ -149,7 +149,7 @@
             this.LbInfo.Location = new System.Drawing.Point(5, 384);
             this.LbInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LbInfo.Name = "LbInfo";
-            this.LbInfo.Size = new System.Drawing.Size(0, 15);
+            this.LbInfo.Size = new System.Drawing.Size(0, 13);
             this.LbInfo.TabIndex = 15;
             // 
             // BtnClearDriversForm
@@ -210,7 +210,7 @@
             this.label5.Location = new System.Drawing.Point(200, 204);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(136, 15);
+            this.label5.Size = new System.Drawing.Size(118, 13);
             this.label5.TabIndex = 8;
             this.label5.Text = "Driving licence number:";
             // 
@@ -220,7 +220,7 @@
             this.label4.Location = new System.Drawing.Point(200, 131);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 15);
+            this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Telephone:";
             // 
@@ -230,7 +230,7 @@
             this.label3.Location = new System.Drawing.Point(380, 68);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 15);
+            this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Last name:";
             // 
@@ -240,7 +240,7 @@
             this.label2.Location = new System.Drawing.Point(198, 68);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 15);
+            this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "First name:";
             // 
@@ -250,7 +250,7 @@
             this.label1.Location = new System.Drawing.Point(200, 8);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(22, 15);
+            this.label1.Size = new System.Drawing.Size(21, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "ID:";
             // 
@@ -380,7 +380,7 @@
             this.label12.Location = new System.Drawing.Point(220, 298);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(44, 15);
+            this.label12.Size = new System.Drawing.Size(40, 13);
             this.label12.TabIndex = 18;
             this.label12.Text = "Status:";
             // 
@@ -443,7 +443,7 @@
             this.label11.Location = new System.Drawing.Point(220, 7);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(22, 15);
+            this.label11.Size = new System.Drawing.Size(21, 13);
             this.label11.TabIndex = 12;
             this.label11.Text = "ID:";
             // 
@@ -497,7 +497,7 @@
             this.label10.Location = new System.Drawing.Point(220, 253);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(70, 15);
+            this.label10.Size = new System.Drawing.Size(62, 13);
             this.label10.TabIndex = 6;
             this.label10.Text = "Travel time:";
             // 
@@ -507,7 +507,7 @@
             this.label9.Location = new System.Drawing.Point(382, 183);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(72, 15);
+            this.label9.Size = new System.Drawing.Size(63, 13);
             this.label9.TabIndex = 5;
             this.label9.Text = "Destination:";
             // 
@@ -517,7 +517,7 @@
             this.label8.Location = new System.Drawing.Point(219, 183);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 15);
+            this.label8.Size = new System.Drawing.Size(32, 13);
             this.label8.TabIndex = 4;
             this.label8.Text = "Start:";
             // 
@@ -527,7 +527,7 @@
             this.label7.Location = new System.Drawing.Point(219, 111);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(29, 15);
+            this.label7.Size = new System.Drawing.Size(26, 13);
             this.label7.TabIndex = 3;
             this.label7.Text = "Car:";
             // 
@@ -537,7 +537,7 @@
             this.label6.Location = new System.Drawing.Point(219, 48);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 15);
+            this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 2;
             this.label6.Text = "Driver:";
             // 
@@ -665,7 +665,7 @@
             this.label13.Location = new System.Drawing.Point(217, 303);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(64, 15);
+            this.label13.Size = new System.Drawing.Size(56, 13);
             this.label13.TabIndex = 35;
             this.label13.Text = "Fuel used:";
             // 
@@ -684,7 +684,7 @@
             this.label14.Location = new System.Drawing.Point(217, 12);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(22, 15);
+            this.label14.Size = new System.Drawing.Size(21, 13);
             this.label14.TabIndex = 33;
             this.label14.Text = "ID:";
             // 
@@ -720,7 +720,7 @@
             this.label15.Location = new System.Drawing.Point(217, 258);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(66, 15);
+            this.label15.Size = new System.Drawing.Size(61, 13);
             this.label15.TabIndex = 27;
             this.label15.Text = "Avg speed:";
             // 
@@ -730,7 +730,7 @@
             this.label16.Location = new System.Drawing.Point(370, 188);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(72, 15);
+            this.label16.Size = new System.Drawing.Size(63, 13);
             this.label16.TabIndex = 26;
             this.label16.Text = "Destination:";
             // 
@@ -740,7 +740,7 @@
             this.label17.Location = new System.Drawing.Point(216, 188);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(35, 15);
+            this.label17.Size = new System.Drawing.Size(32, 13);
             this.label17.TabIndex = 25;
             this.label17.Text = "Start:";
             // 
@@ -750,7 +750,7 @@
             this.label18.Location = new System.Drawing.Point(216, 116);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(69, 15);
+            this.label18.Size = new System.Drawing.Size(58, 13);
             this.label18.TabIndex = 24;
             this.label18.Text = "Kilometers:";
             // 
@@ -760,7 +760,7 @@
             this.label19.Location = new System.Drawing.Point(216, 53);
             this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(43, 15);
+            this.label19.Size = new System.Drawing.Size(38, 13);
             this.label19.TabIndex = 23;
             this.label19.Text = "Hours:";
             // 
@@ -789,6 +789,30 @@
             this.TbPageSetup.Text = "Setup";
             this.TbPageSetup.UseVisualStyleBackColor = true;
             // 
+            // BtnXmlToDb
+            // 
+            this.BtnXmlToDb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.BtnXmlToDb.Location = new System.Drawing.Point(327, 230);
+            this.BtnXmlToDb.Margin = new System.Windows.Forms.Padding(2);
+            this.BtnXmlToDb.Name = "BtnXmlToDb";
+            this.BtnXmlToDb.Size = new System.Drawing.Size(165, 112);
+            this.BtnXmlToDb.TabIndex = 3;
+            this.BtnXmlToDb.Text = "XML to Database";
+            this.BtnXmlToDb.UseVisualStyleBackColor = true;
+            this.BtnXmlToDb.Click += new System.EventHandler(this.BtnXmlToDb_Click);
+            // 
+            // BtnDbToXml
+            // 
+            this.BtnDbToXml.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.BtnDbToXml.Location = new System.Drawing.Point(63, 230);
+            this.BtnDbToXml.Margin = new System.Windows.Forms.Padding(2);
+            this.BtnDbToXml.Name = "BtnDbToXml";
+            this.BtnDbToXml.Size = new System.Drawing.Size(165, 112);
+            this.BtnDbToXml.TabIndex = 2;
+            this.BtnDbToXml.Text = "Database to XML";
+            this.BtnDbToXml.UseVisualStyleBackColor = true;
+            this.BtnDbToXml.Click += new System.EventHandler(this.BtnDbToXml_Click);
+            // 
             // BtnCleanDatabaseRecords
             // 
             this.BtnCleanDatabaseRecords.BackColor = System.Drawing.Color.Red;
@@ -813,30 +837,6 @@
             this.BtnInsertExampleRecords.Text = "Insert example records";
             this.BtnInsertExampleRecords.UseVisualStyleBackColor = true;
             this.BtnInsertExampleRecords.Click += new System.EventHandler(this.BtnInsertExampleRecords_Click);
-            // 
-            // BtnDbToXml
-            // 
-            this.BtnDbToXml.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BtnDbToXml.Location = new System.Drawing.Point(63, 230);
-            this.BtnDbToXml.Margin = new System.Windows.Forms.Padding(2);
-            this.BtnDbToXml.Name = "BtnDbToXml";
-            this.BtnDbToXml.Size = new System.Drawing.Size(165, 112);
-            this.BtnDbToXml.TabIndex = 2;
-            this.BtnDbToXml.Text = "Database to XML";
-            this.BtnDbToXml.UseVisualStyleBackColor = true;
-            this.BtnDbToXml.Click += new System.EventHandler(this.BtnDbToXml_Click);
-            // 
-            // BtnXmlToDb
-            // 
-            this.BtnXmlToDb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BtnXmlToDb.Location = new System.Drawing.Point(327, 230);
-            this.BtnXmlToDb.Margin = new System.Windows.Forms.Padding(2);
-            this.BtnXmlToDb.Name = "BtnXmlToDb";
-            this.BtnXmlToDb.Size = new System.Drawing.Size(165, 112);
-            this.BtnXmlToDb.TabIndex = 3;
-            this.BtnXmlToDb.Text = "XML to Database";
-            this.BtnXmlToDb.UseVisualStyleBackColor = true;
-            this.BtnXmlToDb.Click += new System.EventHandler(this.BtnXmlToDb_Click);
             // 
             // MainForm
             // 

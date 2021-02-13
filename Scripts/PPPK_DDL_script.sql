@@ -45,6 +45,26 @@ CREATE TABLE Car
 GO
 
 /**
+ * Service table.
+ *
+ * Columns:
+ *   IDCar	- auto increment primary key
+ *   Brand	- car's brand name
+ *   Model	- car's model name
+ *   Year	- year of manufacture
+ *   InitialMileage	- initial mileage of the car
+ */
+CREATE TABLE Service 
+(
+	IDService		INT CONSTRAINT PK_Service PRIMARY KEY,
+	Description		NVARCHAR(100)	NOT NULL,
+	Date			DATETIME		NOT NULL,
+	CarID			INT CONSTRAINT FK_Service_Car
+		FOREIGN KEY(CarID) REFERENCES Car(IDCar)
+)
+GO
+
+/**
  * City table.
  *
  * Columns:
@@ -184,6 +204,11 @@ BEGIN
 			(2, 'Zastava', '101', 2008, 30),
 			(3, 'Audi', 'A4', 2014, 74503)
 
+		INSERT INTO Service(IDService, Description, Date, CarID) VALUES
+			(1, 'Promjena gefufne', '2018-08-10T12:23:45', 1),
+			(2, 'Remen', '2019-06-11T12:16:45', 2),
+			(3, 'Ulje', '2020-04-07T12:12:45', 3)
+
 		INSERT INTO City (IDCity, Name, Latitude, Longitude, Country, CountryCode, County, Capital, Population, PopulationProper) VALUES
 			(1, 'Zagreb', 45.8, 16.0, 'Croatia', 'HR', 'Zagreb, Grad', 'primary', 722526, 698966),
 			(2, 'Split', 43.513889, 16.455833, 'Croatia', 'HR', 'Splitsko-Dalmatinska Županija', 'admin', 214741, 176314),
@@ -225,6 +250,7 @@ BEGIN
 	DELETE FROM Fuel
 	DELETE FROM Route
 	DELETE FROM TravelWarrant
+	DELETE FROM Service
 
 	ALTER TABLE Fuel 
 		CHECK CONSTRAINT FK_Fuel_Driver, FK_Fuel_City 
@@ -588,7 +614,7 @@ BEGIN
 END
 GO
 
-CREATAE PROC DeleteRoute
+CREATE PROC DeleteRoute
 	@idRoute int
 AS
 BEGIN
@@ -604,7 +630,7 @@ BEGIN
 END
 GO
 
-ALTER PROC GetAllDatabaseData
+CREATE PROC GetAllDatabaseData
 AS
 BEGIN
 	SELECT
@@ -670,7 +696,10 @@ BEGIN
 		NOCHECK CONSTRAINT FK_Route_CityA, FK_Route_CityB
 	ALTER TABLE TravelWarrant
 		NOCHECK CONSTRAINT FK_TravelWarrant_Driver, FK_TravelWarrant_Car, FK_TravelWarrant_Fuel, FK_TravelWarrant_Route
-	
+	ALTER TABLE Service
+		NOCHECK CONSTRAINT FK_Service_Car
+
+
 	DELETE FROM Driver
 	DELETE FROM Car
 	DELETE FROM Fuel
@@ -683,6 +712,8 @@ BEGIN
 		CHECK CONSTRAINT FK_Route_CityA, FK_Route_CityB
 	ALTER TABLE TravelWarrant 
 		CHECK CONSTRAINT FK_TravelWarrant_Driver, FK_TravelWarrant_Car, FK_TravelWarrant_Fuel, FK_TravelWarrant_Route
+	ALTER TABLE Service
+		CHECK CONSTRAINT FK_Service_Car
 END
 GO
 

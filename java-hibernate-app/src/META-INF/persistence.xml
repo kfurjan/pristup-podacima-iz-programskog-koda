@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="java-hibernate-appPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>hr.algebra.model.Service</class>
+    <class>hr.algebra.model.TravelWarrantType</class>
+    <class>hr.algebra.model.Fuel</class>
+    <class>hr.algebra.model.City</class>
+    <class>hr.algebra.model.Car</class>
+    <class>hr.algebra.model.Driver</class>
+    <class>hr.algebra.model.TravelWarrant</class>
+    <class>hr.algebra.model.Route</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=PPPK"/>
+      <property name="javax.persistence.jdbc.user" value="sql-login"/>
+      <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="javax.persistence.jdbc.password" value="sqlServer01."/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2008Dialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+  </persistence-unit>
+</persistence>
